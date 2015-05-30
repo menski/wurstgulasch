@@ -1,0 +1,18 @@
+bind:
+  image: menski/bind9
+  volumes:
+    - docker/named.conf.local:/etc/bind/named.conf.local
+    - docker/db.camunda.example.com:/etc/bind/db.camunda.example.com
+  ports:
+    - "53:53/udp"
+
+camunda:
+  build: docker/
+  environment:
+    - JAVA_OPTS=-Djava.security.egd=file:/dev/./urandom
+  links:
+    - bind:ns.camunda.example.com
+  volumes:
+    - docker/bpm-platform.xml:/camunda/conf/bpm-platform.xml
+    - plugin/target/wurstgulasch-7.3.0.jar:/camunda/lib/wurstgulasch-7.3.0.jar
+  tty: true

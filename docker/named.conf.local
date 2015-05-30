@@ -1,0 +1,12 @@
+key camunda.example.com. {
+  algorithm HMAC-MD5;
+  secret "zG6V1UtQc9AiI999oVy06I5la2zoeeMlO+GzxxEutlawggMERrMwvjgbmM204b5y5HPZlf+BHdqrmLm/9Ipd7w==";
+};
+
+zone "camunda.example.com" {
+    type master;
+    file  "/etc/bind/db.camunda.example.com";
+    allow-update {
+        key camunda.example.com.;
+    };
+};
